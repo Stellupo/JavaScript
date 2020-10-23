@@ -58,8 +58,7 @@
     };
 
     function createTree(container, data) {
-    // if there's no children, then the call returns undefined
-    // and the <ul> won't be created
+    // if there's no children, the <ul> won't be created
     if (!Object.keys(data).length) return;
 
     let ul = document.createElement('ul');
