@@ -76,6 +76,7 @@ function createCalendar(elem, year, month) {
         table.append(tr);
       }
   }
+  elem.append = table;
 }
 
 
