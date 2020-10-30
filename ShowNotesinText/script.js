@@ -3,20 +3,43 @@
  * Both elements: elem and anchor must be in the document
  */
 
+function getCoords(elem) {
+  let box = elem.getBoundingClientRect();
+
+  return {
+    top: box.top + window.pageYOffset,
+    right: box.right + window.pageXOffset,
+    bottom: box.bottom + window.pageYOffset,
+    left: box.left + window.pageXOffset
+  };
+}
+
 function positionAt(anchor, position, elem) {
-  let coords = anchor.getBoundingClientRect();
-  if (position == 'top') {
+  let coords = getCoords(anchor);
+  if (position == 'top-out') {
     elem.style.top = (coords.top - elem.offsetHeight) +'px';
     elem.style.left = coords.left +'px';
   }
-  else if (position == 'right') {
+  else if (position == 'right-out') {
     elem.style.top = (coords.top) +'px';
-    elem.style.left = (coords.left+ anchor.offsetWidth) +'px';
+    elem.style.left = (coords.left + anchor.offsetWidth) +'px';
   }
-  else if (position == 'bottom') {
+  else if (position == 'bottom-out') {
     elem.style.top= (coords.bottom) +'px';
     elem.style.left = (coords.left) +'px';
   }
+  else if (position == 'top-in') {
+    elem.style.top= (coords.top) +'px';
+    elem.style.left = (coords.left) +'px';
+  }
+  else if (position == 'right-in') {
+    elem.style.top = (coords.top) +'px';
+    elem.style.left = (coords.right - elem.offsetWidth) +'px';
+  }
+  else if (position == 'bottom-in') {
+    elem.style.top= (coords.bottom - elem.offsetHeight) +'px';
+    elem.style.left = (coords.left) +'px';
+}
 }
 
 /*
@@ -36,6 +59,9 @@ function showNote(anchor, position, html) {
 // test
 let blockquote = document.querySelector('blockquote');
 
-showNote(blockquote, "top", "note above");
-showNote(blockquote, "right", "note at the right");
-showNote(blockquote, "bottom", "note below");
+showNote(blockquote, "top-out", "note top-out");
+showNote(blockquote, "bottom-out", "note bottom-out");
+showNote(blockquote, "right-out", "note right-out");
+showNote(blockquote, "top-in", "note top-in");
+showNote(blockquote, "bottom-in", "note bottom-in");
+showNote(blockquote, "right-in", "note right-in");

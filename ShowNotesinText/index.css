@@ -1,11 +1,12 @@
 .note {
-  position: fixed;
+  position: absolute;
   z-index: 1000;
   padding: 5px;
   border: 1px solid black;
   background: white;
   text-align: center;
   font: italic 14px serif;
+  opacity: .8;
 }
 
 blockquote {
