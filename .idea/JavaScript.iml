@@ -6,6 +6,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="FootBall" />
+    <orderEntry type="module" module-name="Carousel" />
   </component>
 </module>
