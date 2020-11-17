@@ -1,4 +1,4 @@
-/* Timeline */
+/*Timeline*/
 @import "timeline.css";
 
 /* Custom Fonts */
@@ -27,25 +27,33 @@
 
 /* Overall Page*/
 body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: center;
+    background-color: #000013;
     font-family: 'poppinsmedium', Montserrat, serif;
     margin:0px;
     padding: 0;
 }
 
-#bloc_page {
-    width: 900px;
+#block_page {
+    width: 100%;
+    height:100%;
+    max-width: 1500px;
     margin: auto;
-    padding: 0;
+    padding: 0px 40px;
 }
 
 /* Header */
 
 header {
-    background: url("../Images/background-image.png") top right scroll no-repeat;
-    background-size: cover;
-    margin-top:0px;
+    background: url("../Images/web_design.png") top right scroll no-repeat;
+    background-size: 60%;
+    margin-top: 100px;
     padding: 1px 0;
-    height: 950px; /* ourquoi avoir besoin de préciser..? */
+    height: 850px; /* pourquoi avoir besoin de préciser..? */
+    font-family: 'poppinsmedium', Montserrat, serif;
 }
 
 #introduction {
@@ -53,7 +61,7 @@ header {
     margin: 50px;
     top: 500px;
     left: 100px;
-    width: 30%;
+    width: 40%;
     overflow: auto;
     padding:0;
     display: flex;
@@ -62,35 +70,37 @@ header {
 }
 
 #introduction p {
-    color : white;
+    color : #ffffff;
     font-size: 150%;
 }
 
 header h1 {
-    color: rgb(72, 221, 227);
+    color: rgb(255,255,255);
     font-size: 550%;
-    text-shadow: 10px 10px 10px rgb(25,71,189);
+    text-shadow: 0px 0px 7px #ffffff;
 }
 
 header h2 {
-    color: rgb(72, 221, 227);
+    color: #ffffff;
     text-decoration: overline;
     margin-top: -30px;
 }
 
 #introduction button {
     border: 2px solid rgb(72, 221, 227);
+    text-shadow: 0px 0px 7px rgb(72, 221, 227);
+    box-shadow: 0px 0px 7px rgb(72, 221, 227);
     border-radius: 100px;
     padding : 15px;
-    font-family: "poppins", Montserrat, serif;
     font-size: 150%;
     color: rgb(72, 221, 227);
-    background-color: rgb(13,15,56);
+    background-color: #000013;
     margin-top: 80px;
     width: 80%;
 }
 
 /* Section Experiences*/
+
 
 section#experiences {
     display: flex;
@@ -98,49 +108,100 @@ section#experiences {
     justify-content: flex-start;
     align-content: space-around;
     width: 100%;
-    height: 1000px;
+    height: 1300px;
 }
 
 #experiences h1 {
+    color: rgb(255,255,255);
     font-size: 350%;
-    color: rgb(16,16,89);
-    text-shadow: 5px 5px 5px rgb(104,119,255);
+    text-shadow: 0px 0px 7px #ffffff;
     text-align:center;
 }
 
 #experiences h2 {
     font-family: 'poppinsextralight', Montserrat, serif;
     font-size: 150%;
-    color: rgb(16,16,89);
+    color: rgb(255,255,255);
     margin-top: -30px;
-    margin-bottom: 50px;
+    margin-bottom: 100px;
     text-decoration: underline;
     text-align:center;
 }
 
-#exp_bloc {
-    border-top: 2px solid rgb(16,16,89);
-    border-bottom: 2px solid rgb(16,16,89);
-}
-
-.row {
+.row_1 {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    align-items: flex-start;
-    font-family: 'poppinsextralight', Montserrat, serif;
-    color: rgb(16,16,89);
-    font-size: 95%;
-    margin: 0px 150px;
-    padding:0px 20px;
+    margin: 20px 0px;
 }
 
-section#experiences h3 {
-    font-family: 'poppinsmedium', Montserrat, serif;
-    text-transform: uppercase;
-    font-size: 100%;
-    color: rgb(16,16,89);
+.row_2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
 }
+
+#experiences h3 {
+    font-family: 'poppinsmedium', Montserrat, serif;
+    font-size: 100%;
+    color: rgb(72, 221, 227);
+}
+
+.date_company_right, .date_company_left {
+    font-family: 'Courier New', serif;
+    font-size: 120%;
+    color: rgb(72, 221, 227);
+    text-shadow: 0px 0px 7px rgb(72, 221, 227);
+    padding: 10px 45px;
+
+}
+
+.date_company_left{
+    text-align: right;
+
+}
+
+
+#experiences h4 {
+        margin: 0px;
+}
+
+/* Navigation block */
+
+#nav {
+    display : block;
+    z-index: 100;
+    background-color: #FF13B5;
+    color: rgb(255,255,255);
+    font-size: 80%;
+    font-family: 'poppinsmedium', Montserrat, serif;
+    margin: auto;
+    position: fixed;
+    right: 2%;
+    top: 80px;
+}
+
+
+#nav ul {
+    display:flex;
+    flex-direction: column;
+    align-content:center;
+    padding: 0px 5px;
+    text-align: center;
+    margin: 0;
+}
+
+#nav li {
+    list-style-type: none;
+    height: 80px;
+    width : 90px;
+    margin: auto;
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 0px;
+}
+
+/*
 
 .cell_1{
     width: 300px;
@@ -158,11 +219,12 @@ section#experiences h3 {
 img{
     padding-top: 10px;
 }
+*/
 
 /* Section Skills*/
 
 #skills {
-    background: url("../Images/blue-background.jpeg") top right scroll no-repeat;
+    /*background: url("../Images/blue-background.jpeg") top right scroll no-repeat;*/
     background-size: cover;
     margin-top:0px;
     padding: 1px 0;
@@ -178,8 +240,8 @@ img{
 
 #skills h1 {
     font-size: 350%;
-    color: rgb(72, 221, 227);
-    text-shadow: 5px 5px 5px rgb(25,71,189);
+    color: rgb(225,225,225);
+    text-shadow: 0px 0px 7px #ffffff;
     text-align:center;
 }
 
@@ -201,7 +263,8 @@ img{
     text-decoration: none;
 }
 
-.container{
+/*
+.container_skills{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -231,7 +294,7 @@ img{
 }
 
 
-
+*/
 
 /* progress bar */
 .progress-bar {
