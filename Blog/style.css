@@ -56,11 +56,17 @@ body {
     align-content: center;
 }
 
-h1 {
+section h1, footer h1 {
     font-family: 'poppinsmedium', serif;
     font-size: 150%;
     letter-spacing: .1rem;
     text-transform: uppercase;
+}
+
+mark {
+    color: #ffffff;
+    background-color: rgb(0,0,0);
+    padding : 10px 20px;
 }
 
 ul {
@@ -76,6 +82,11 @@ li{
     margin: 10px;
 }
 
+/* Solid border */
+hr.solid {
+  border-top: 3px solid black;
+  margin: 10px 0;
+}
 
 
 /* Header */
@@ -153,11 +164,10 @@ nav a:hover {
 }
 
 #button {
-    border-radius : 5px;
-    background-color: #9A8779;
+    border-radius : 2px;
+    background: #419293;
     padding: 10px;
     text-align:center;
-    box-shadow: 5px 5px 20px #655A52 inset;
     font-family: 'poppinsmedium', serif;
 }
 
@@ -171,3 +181,124 @@ nav a:hover {
 }
 
 /* Section */
+
+section {
+    display: flex;
+    margin: 0px 0px;
+    height: auto;
+    text-align: justify;
+}
+
+article {
+    flex: 3;
+    padding-right: 50px;
+}
+
+aside {
+    display: flex;
+    flex-direction: column;
+    flex:1.2;
+    height: 900px;
+}
+aside img{
+    height: 50%;
+}
+
+aside ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+aside ul img{
+    width:40px;
+    height: 40px;
+}
+
+/* Footer */
+
+footer #cells_container {
+    display: flex;
+    justify-content: space-between;
+    height: 400px;
+    margin-top: 20px;
+    position: relative;
+}
+
+footer div.cell{
+    width: 30%;
+    height: 80%;
+    opacity: 0.7;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+footer div p {
+    text-align: justify;
+    padding: 5px 0px;
+}
+
+.cell a {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+}
+
+div.date {
+    position: absolute;
+    bottom: 0;
+    color: grey;
+    align-self: flex-start;
+}
+
+#img_wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50%;
+    margin: 40px 0;
+}
+
+#img_wrapper img{
+    width: 100%;
+}
+
+footer div:hover{
+    opacity: 1;
+}
+
+#black_footer {
+    height: 200px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.black_rectangle {
+    height: 40px;
+    width: 100%;
+    background: rgb(0,0,0);
+    border: 1px rgb(0,0,0);
+    margin: 0;
+}
+
+#black_footer a {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-bottom: -5px;
+}
+
+
+#black_footer img {
+    height: 50px;
+}
