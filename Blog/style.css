@@ -56,7 +56,7 @@ body {
     align-content: center;
 }
 
-section h1, footer h1 {
+section h2, footer h2 {
     font-family: 'poppinsmedium', serif;
     font-size: 130%;
     letter-spacing: .1rem;
@@ -192,6 +192,10 @@ article {
     padding-right: 50px;
 }
 
+article img{
+    width: 100%;
+}
+
 aside {
     display: flex;
     flex-direction: column;
@@ -209,6 +213,7 @@ aside {
 
 aside img{
     height: 100%;
+    width: 100%;
 }
 
 aside ul {
@@ -217,7 +222,7 @@ aside ul {
 }
 
 aside ul img{
-    width:60px;
+    width: 60px;
     height: 60px;
 }
 
@@ -241,17 +246,21 @@ footer div.cell{
     align-items: center;
 }
 
-footer div p {
-    text-align: justify;
-    padding: 5px 0px;
-}
-
 .cell a {
     display:flex;
     flex-direction: column;
     align-items: center;
     color: white;
     text-decoration: none;
+}
+
+.cell img {
+    width: 80%;
+}
+
+footer div p {
+    text-align: justify;
+    padding: 5px 0px;
 }
 
 div.date {
@@ -337,7 +346,7 @@ footer div:hover{
         margin-top: 10px;
     }
 
-    header h1 {
+    header h2 {
         margin: auto;
         margin-bottom: 10px;
         margin-top: 10px;
@@ -376,7 +385,7 @@ footer div:hover{
         padding: 5px;
     }
 
-    aside h1{
+    aside h2 {
         padding: 20px;
     }
 
