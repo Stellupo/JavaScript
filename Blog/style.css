@@ -66,7 +66,7 @@ section h1, footer h1 {
 mark {
     color: #ffffff;
     background-color: rgb(0,0,0);
-    padding : 10px 20px;
+    padding : 10px 18px;
 }
 
 ul {
@@ -91,12 +91,8 @@ hr.solid {
 
 /* Header */
 
-header {
-    display : flex,
-    justify-content: space-between;
-}
 
-.title{
+header{
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -185,6 +181,7 @@ nav a:hover {
 
 section {
     display: flex;
+    flex-wrap : wrap;
     margin: 0px 0px;
     height: auto;
     text-align: left;
@@ -199,22 +196,29 @@ aside {
     display: flex;
     flex-direction: column;
     flex:1.2;
+    width: auto;
     height: 900px;
+    flex-wrap : wrap;
 }
+
+#aside_img {
+    height: 50%;
+    max-width: 100%;
+    margin: auto;
+}
+
 aside img{
-    height: 40%;
+    height: 100%;
 }
 
 aside ul {
-    display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
 }
 
 aside ul img{
-    width:40px;
-    height: 40px;
+    width:60px;
+    height: 60px;
 }
 
 /* Footer */
@@ -302,4 +306,144 @@ footer div:hover{
 
 #black_footer img {
     height: 50px;
+}
+
+/* Rules for mobile and smallest screens */
+@media all and (max-width: 1024px) {
+{
+}
+    /* Main */
+    #main_container {
+        width: auto;
+    }
+
+    li{
+        padding: 3px;
+        margin: 3px;
+    }
+
+
+    /* Header */
+
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #logo {
+        letter-spacing: .1rem;
+        min-width: 60%;
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+
+    header h1 {
+        margin: auto;
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+
+        /* Nav bar */
+
+     nav {
+        align-self: flex-start;
+     }
+
+     nav ul {
+        flex-direction: column;
+    }
+    /* Banner */
+
+    #banner {
+        display: none;
+    }
+
+    /* Section */
+
+    section {
+        flex-direction: column;
+        justify-content: center;
+        text-align: justify;
+    }
+
+    article {
+        padding: 5px;
+    }
+
+    aside {
+        display: block;
+        height: auto;
+        padding: 5px;
+    }
+
+    aside h1{
+        padding: 20px;
+    }
+
+    #aside_img{
+        float: left;
+    }
+
+    aside img{
+        width: 200px;
+        height: auto;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    aside p {
+        width: auto;
+        margin: 20px;
+        padding: 0 1px;
+    }
+
+    aside ul img{
+        width:30px;
+        height: 30px;
+        margin-left: 5px;
+    }
+
+
+    /* Footer */
+
+    footer #cells_container {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+        margin-top: 0px;
+    }
+
+    footer div.cell{
+        width: 90%;
+        position: relative;
+        margin-top: 50px;
+    }
+
+    footer div.cell:first-child{
+        margin-top: 20px;
+    }
+
+    div.cell a {
+        margin-top: 20px;
+    }
+    div.date {
+        top: 100%;
+        padding-top: 20px;
+    }
+
+    #img_wrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 50%;
+        margin: 20px 0;
+    }
+
+    #img_wrapper img{
+        width: 100%;
+    }
+
 }
