@@ -1,0 +1,24 @@
+td:hover {
+  cursor: pointer;
+}
+
+.edit {
+  width: 150px;
+  padding: 0px;
+  height: 80px;
+  text-align: left;
+  resize: none;
+  position: relative;
+}
+
+.button {
+    text-align: center;
+}
+
+.button:hover {
+    cursor: pointer;
+}
+
+.buttonLine {
+    position: absolute;
+}

@@ -15,7 +15,7 @@ text.onblur = function() {
 
 // when the key Enter is pressed, blur event is triggered
 text.onkeydown = function(event) {
-if (event.key == 'Enter') text.blur();
+    if (event.key == 'Enter') text.blur();
 };
 
 //adding click event handler to div, div transforms into textarea
