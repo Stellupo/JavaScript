@@ -2,25 +2,28 @@
 let table = document.getElementById('bagua-table');
 let editingState;
 let text;
-let actualCell;
+let td;
 
 // adding one click event handler to our table
 table.onclick = function(event) {
     // target can be a cell, a ready-to-edit cell or a button
     let target = event.target;
-    let td = target.closest('td');
 
     if (!table.contains(target)) return;
 
     // if we click on buttons OK or CANCEL when editing
     if (target.parentNode.className == "buttonLine") {
         editingState = "off";
-        checkState(actualCell,target.parentNode.previousSibling);
+
+        finishEditing(td,target.parentNode.previousSibling);
     }
     // if we click on a cell
-    else if (td) {
+    else if (target.closest('td')) {
         // if we are already editing a cell, we can't click on another one
         if (editingState == "on") return;
+
+        // saving td info to use later when we leave the editing mode and replace textarea by td.
+        td = target.closest('td');  // don't define td before. If we do, finishEditing function will take the wrong td as a parameter as we click on another cell
 
         // if we click on a new cell, we can edit it
         editingState = "on";
@@ -28,13 +31,9 @@ table.onclick = function(event) {
     };
 }
 
-function checkState(td, text) {
-    // if editing mode on, textarea can be edited
-    if (editingState == "on") {
-        return;
-    }
+function finishEditing(td, text) {
     // if buttons have been clicked, textarea can't be edited anymore
-    else if (editingState == "off") {
+    if (editingState == "off") {
         if (event.target.innerHTML == "OK") {
             td.innerHTML = text.value;
         }
@@ -44,7 +43,6 @@ function checkState(td, text) {
 }
 
 function editingCell(td) {
-
     // creating textarea
     text = document.createElement('textarea');
     text.style.width = td.clientWidth + 'px';
@@ -63,7 +61,4 @@ function editingCell(td) {
     // buttons appears & focus on textarea cell to edit
     text.after(buttonLine);
     text.focus();
-
-    // saving td info in actualCell to use later when we leave the editing mode by clicking on buttons
-    actualCell = td;
 }
