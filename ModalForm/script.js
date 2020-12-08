@@ -74,10 +74,10 @@ function showPrompt(html, callback) {
     // making the background looking unreachable
     container.style.backgroundColor = "rgba(0,0,0,0.4)";
     /* need rgba here to indicates the transparency
-    of the background-color and not the element itself */
+    of the background and not the elements inside of it */
 };
 
- /calling the function
+ //calling the function
  document.getElementById('show-button').onclick = function() {
     showPrompt("Hey enter something please!", function (value) {
         alert("You entered: " + value);
