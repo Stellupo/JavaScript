@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/DivToTextarea/.idea/DivToTextarea.iml" filepath="$PROJECT_DIR$/DivToTextarea/.idea/DivToTextarea.iml" />
       <module fileurl="file://$PROJECT_DIR$/ImageGallery/.idea/ImageGallery.iml" filepath="$PROJECT_DIR$/ImageGallery/.idea/ImageGallery.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/JavaScript.iml" filepath="$PROJECT_DIR$/.idea/JavaScript.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ModalForm/.idea/ModalForm.iml" filepath="$PROJECT_DIR$/ModalForm/.idea/ModalForm.iml" />
     </modules>
   </component>
 </project>
