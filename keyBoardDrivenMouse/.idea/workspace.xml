@@ -20,7 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cb5bf1ab-33c1-4740-ba0d-70c8f9e65c81" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ModalForm/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CV/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CV/.idea/dbnavigator.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CV/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../CV/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ModalForm/.idea/ModalForm.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../ModalForm/.idea/ModalForm.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ModalForm/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ModalForm/.idea/modules.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +45,7 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -228,6 +232,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
