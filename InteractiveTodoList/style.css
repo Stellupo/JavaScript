@@ -142,13 +142,39 @@ section {
 
 #tasks_list {
     width: 80%;
+    max-height: 500px;
+    overflow: scroll;
     padding: 20px;
 }
 
-#tasks_list p {
+#task {
     font-size: 100%;
+    padding: 10px;
     font-weight: bold;
     text-transform: lowercase;
+    display: flex;
+}
+
+#tasks_list p {
+    flex: 3;
+    padding: 5px;
+    margin: 0;
+}
+
+#img_wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 80%;
+    height: 50%;
+    margin: 0;
+    flex: 0.5;
+}
+
+#img_wrapper img{
+    height: 30px;
+    width: auto;
+    margin: 5px;
 }
 
 .button {
