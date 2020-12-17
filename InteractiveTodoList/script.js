@@ -1,27 +1,7 @@
-/*class Task {
-  constructor() {
-    this.template = template;
-  }
-    let Task = {
-    text :,
-    checked: ,
-    id:,};
-  render() {
-  }
-
-  stop() {
-    clearInterval(this.timer);
-  }
-
-  start() {
-  }
-}
-
-let array =
-*/
+// general functions
 
 // updating the visual of the page according to the presence of tasks in tasks_list
-function listUpdate(list) {
+function updateList(list) {
     let section = document.getElementById("section");
     let footer = document.querySelector('footer');
 
@@ -55,9 +35,42 @@ function createTask(title) {
     task.append(task_name);
 
     // adding the buttons check, edit and delete
-    task.insertAdjacentHTML('beforeend', '<div id="img_wrapper"><img src="Images/icon_check_green.png" alt="icon 1"><img src="Images/icon_edit_white.png" alt="icon 2"> <img src="Images/icon_delete_red.png" alt="icon 3"></div>');
+    task.insertAdjacentHTML('beforeend', '<div id="button_wrapper"><img src="Images/check.png" alt="check"><img src="Images/edit.png" alt="edit"> <img src="Images/delete.png" alt="delete"></div>');
 
     task_list.append(task);
+
+    // handling click on the button wrapper of the current task
+    let task_buttons = task.querySelector("div");
+
+    task_buttons.addEventListener ('click', function(event) {
+        let button = event.target.closest('img');
+
+        // if we don't click on buttons, return
+        if (!button) return;
+
+        // 3 possible buttons : check, edit, delete
+
+        // button check
+        if (button == task_buttons.children[0]) {
+            task_buttons.parentElement.remove();
+            document.getElementById('modal_container').style.display = "flex";
+            // making the page unsrollable
+            document.querySelector('body').style.overflow = "hidden"; // todo add a cross to close the modal
+        }
+
+        // button edit
+        else if (button == task_buttons.children[1]) {
+             //to do mettre un modal ici, l'importer ..? pour avoir un GIF qui nous félicite
+        }
+
+        // button delete
+        else if (button == task_buttons.children[2]) task_buttons.parentElement.remove();
+
+        // checking if there is still tasks in the list, otherwise adapt the visual
+        updateList(task_list);
+    });
+
+
 }
 
 
@@ -79,7 +92,7 @@ addButton.addEventListener("click", function() {
 
     // if the title is complete
     createTask(title);
-    listUpdate(task_list);
+    updateList(task_list);
 });
 
 // handling click event on clear_tasks
@@ -94,19 +107,37 @@ clearButton.addEventListener("click", function() {
         task.remove();
     }
 
-    listUpdate(task_list);
+    updateList(task_list);
+});
+
+// handling events when we have the modal on page
+let modal_container = document.getElementById('modal_container');
+
+modal_container.addEventListener("click", function(event) {
+    let target = event.target;
+
+    if (target.id != "modal_container") return;
+
+    if (modal_container.style.display == "flex") modal_container.style.display = "";
 });
 
 
+
+
 /* todo
-creer une tache et shooter la partie haute h2 et h3 dans section - done
-faire le style du div tasks list
 penser au local storage
 completer la tâche
-pouvoir la suppr
+pouvoir la suppr - done
 modifier la tache
-alerter quand on essaie d'ajouter une tâche vite
 feliciter quand tâche est complétée
-changer la phrase what to : en " Here is what I want to be done"
+ajouter une sorde de % des tâches déjà réalisées avec un niveau ..?
+possibilité de rentrer une date .. ?
+
+
+creer une tache et shooter la partie haute h2 et h3 dans section - done
+faire le style du div tasks list - done
+alerter quand on essaie d'ajouter une tâche vide  - done
+changer la phrase what to : en " Here is what I want to be done" - done
+
 */
 
