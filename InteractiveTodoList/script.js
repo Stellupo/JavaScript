@@ -60,7 +60,8 @@ function createTask(title) {
 
         // button edit
         else if (button == task_buttons.children[1]) {
-             //to do mettre un modal ici, l'importer ..? pour avoir un GIF qui nous félicite
+            task_name.setAttribute("contenteditable","true");
+            task_name.focus(); // force the focus
         }
 
         // button delete
@@ -98,6 +99,7 @@ addButton.addEventListener("click", function() {
 // handling click event on clear_tasks
 let clearButton = document.getElementById('clear_tasks');
 
+
 clearButton.addEventListener("click", function() {
     // getting the tasks in the list
     let tasks = tasks_list.querySelectorAll('div');
@@ -121,23 +123,38 @@ modal_container.addEventListener("click", function(event) {
     if (modal_container.style.display == "flex") modal_container.style.display = "";
 });
 
+// handling event when we are editing a task name
 
+// when the task name is focus, we can edit it
+tasks_list.addEventListener("click", function(event) {
+    let target = event.target;
 
+    if (target.tagName != "P") return;
+
+    // if the task name has been clicked on
+    target.setAttribute("contenteditable","true"); // task name is now editable
+    target.focus();
+
+    // when the task name is edited, and we click elsewhere
+    target.addEventListener("blur", function() {
+
+        // if the title is empty, we will delete the whole line of the task
+        if (target.textContent == "") {
+                target.parentElement.remove(); //todo idaelly just alert the user (but if we click on ok on the alert it's an infinite loop)
+        }
+        // else we make the task non editable again
+        else {
+            target.setAttribute("contenteditable","");
+            target.blur();
+        }
+    });
+
+});
 
 /* todo
 penser au local storage
-completer la tâche
-pouvoir la suppr - done
-modifier la tache
-feliciter quand tâche est complétée
 ajouter une sorde de % des tâches déjà réalisées avec un niveau ..?
 possibilité de rentrer une date .. ?
-
-
-creer une tache et shooter la partie haute h2 et h3 dans section - done
-faire le style du div tasks list - done
-alerter quand on essaie d'ajouter une tâche vide  - done
-changer la phrase what to : en " Here is what I want to be done" - done
-
+mettre un petit texte au dessus des icône pour préciser ce que c'est quand la souris en survol
 */
 

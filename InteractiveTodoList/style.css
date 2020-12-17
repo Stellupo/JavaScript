@@ -39,7 +39,6 @@ html,body {
 #main_container {
     width: 1200px;
     margin: auto;
-    padding: 10px 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -70,7 +69,7 @@ header {
 
 header hr {
     display: inline-block;
-    width : 70%;
+    width : 90%;
     height: 3px;
     color: #0B01FF;
     position : absolute;
