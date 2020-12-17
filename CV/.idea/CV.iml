@@ -5,5 +5,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Timeline" />
+    <orderEntry type="module" module-name="InteractiveSortingTable" />
+    <orderEntry type="module" module-name="InteractiveTodoList" />
   </component>
 </module>
