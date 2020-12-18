@@ -2,6 +2,20 @@
 
 // updating the visual of the page according to the presence of tasks in tasks_list
 function updateList(list) {
+
+    // assuring the data storage : the tasks list remain
+    // if the tasks have already been added
+
+    // if we don"t have values in tasksList, value b defaut is set
+    //localStorage.clear();
+
+    // updating the data storage
+    localStorage.setItem('tasksList',list.innerHTML);
+
+    task_list.addEventListener("change", function() {
+        localStorage.setItem('tasksList', task_list.innerHTML);
+    });
+
     let section = document.getElementById("section");
     let footer = document.querySelector('footer');
 
@@ -39,43 +53,50 @@ function createTask(title) {
 
     task_list.append(task);
 
-    // handling click on the button wrapper of the current task
-    let task_buttons = task.querySelector("div");
+    // checking if there is still tasks in the list, otherwise adapt the visual
+    updateList(task_list);
 
-    task_buttons.addEventListener ('click', function(event) {
-        let button = event.target.closest('img');
+}
 
-        // if we don't click on buttons, return
-        if (!button) return;
 
-        // 3 possible buttons : check, edit, delete
+function editTask (task) {
+   // if the task name has been clicked on
+    task.setAttribute("contenteditable","true"); // task name is now editable
+    task.focus();
 
-        // button check
-        if (button == task_buttons.children[0]) {
-            task_buttons.parentElement.remove();
-            // the modal windows opens
-            document.getElementById('modal_container').style.display = "flex";
+    // when the task name is edited, and we click elsewhere
+    task.addEventListener("blur", function() {
 
-            // making the page unsrollable
-            document.querySelector('body').style.overflow = "hidden";
+        // if the title is empty, we will delete the whole line of the task
+        if (task.textContent == "") {
+                task.parentElement.remove(); //todo ideally just alert the user (but if we click on ok on the alert it's an infinite loop)
+        }
+        // else we make the task non editable again
+        else {
+            task.setAttribute("contenteditable","");
+            task.blur();
         }
 
-        // button edit
-        else if (button == task_buttons.children[1]) {
-            task_name.setAttribute("contenteditable","true");
-            task_name.focus(); // force the focus
-        }
-
-        // button delete
-        else if (button == task_buttons.children[2]) task_buttons.parentElement.remove();
-
-        // checking if there is still tasks in the list, otherwise adapt the visual
         updateList(task_list);
 
     });
 
-    // checking if there is still tasks in the list, otherwise adapt the visual
-    updateList(task_list);
+    // if the task name is edited, and we press Enter key
+    task.addEventListener("keydown", function(event) {
+        if (event.key == "Enter") {
+            // if the title is empty, we will delete the whole line of the task
+            if (task.textContent == "") {
+                    task.parentElement.remove(); //todo ideally just alert the user (but if we click on ok on the alert it's an infinite loop)
+            }
+            // else we make the task non editable again
+            else {
+                task.setAttribute("contenteditable","");
+                task.blur();
+            }
+
+            updateList(task_list);
+        }
+    });
 
 }
 
@@ -87,7 +108,11 @@ let input_bar = document.getElementById('input_bar');
 let addButton = document.getElementById('add_tasks');
 let task_list = document.getElementById('tasks_list');
 
-
+// initializing datas from localStorage
+task_list.innerHTML = localStorage.getItem('tasksList');
+updateList(task_list);
+// assuring the data storage : the task title appears in input bar if we have began to write
+input_bar.value = localStorage.getItem('title');
 
 // handling click event on button Add task
 addButton.addEventListener("click", function() {
@@ -126,9 +151,7 @@ input_bar.addEventListener("keydown", function(event) {
     input_bar.value = "";
 });
 
-// assuring the data storage : the task title appears in input bar if we have began to write
-input_bar.value = localStorage.getItem('title');
-// for each new input letter, we store it in localStorage.
+// handling data storage : for each new input letter, we store it in localStorage.
 input_bar.addEventListener("input", function() {
     localStorage.setItem('title',input_bar.value);
 });
@@ -174,62 +197,59 @@ buttonClose.addEventListener('click', function() {
 });
 
 
-// Task Name editing process
-// handling events when we are editing a task name
+// Tasks List
+// handling events when we are clicking on an element of tasks list
 
-// when the task name is focus, we can edit it
 task_list.addEventListener("click", function(event) {
     let target = event.target;
+    let div = target.closest('div');
 
-    if (target.tagName != "P") return;
-
-    // if the task name has been clicked on
-    target.setAttribute("contenteditable","true"); // task name is now editable
-    target.focus();
-
-    // when the task name is edited, and we click elsewhere
-    target.addEventListener("blur", function() {
-
-        // if the title is empty, we will delete the whole line of the task
-        if (target.textContent == "") {
-                target.parentElement.remove(); //todo ideally just alert the user (but if we click on ok on the alert it's an infinite loop)
-        }
-        // else we make the task non editable again
-        else {
-            target.setAttribute("contenteditable","");
-            target.blur();
-        }
-
+    // if we have clicked on the task name
+    if (div.id == "task") {
+        editTask(target.closest('p'));   // task name editing function
         updateList(task_list);
 
-    });
+    }
+    // if we have clicked on one of the buttons
+    else if (div.id == "button_wrapper") {
 
-    // if the task name is edited, and we press Enter key
-    target.addEventListener("keydown", function(event) {
-        if (event.key == "Enter") {
-            // if the title is empty, we will delete the whole line of the task
-            if (target.textContent == "") {
-                    target.parentElement.remove(); //todo ideally just alert the user (but if we click on ok on the alert it's an infinite loop)
-            }
-            // else we make the task non editable again
-            else {
-                target.setAttribute("contenteditable","");
-                target.blur();
-            }
+        let button = target.closest('img');
+        let task = target.closest('#task')
+        let task_buttons = target.closest('#button_wrapper');
+
+        // if we don't click on buttons, return
+        if (!button) return;
+
+        // 3 possible buttons : check, edit, delete
+
+        // button check
+        if (button == task_buttons.children[0]) {
+            task_buttons.parentElement.remove();
+            // the modal windows opens
+            document.getElementById('modal_container').style.display = "flex";
+
+            // making the page unsrollable
+            document.querySelector('body').style.overflow = "hidden";
         }
 
+        // button edit
+        else if (button == task_buttons.children[1]) {
+            div.previousElementSibling.setAttribute("contenteditable","true");
+            div.previousElementSibling.focus(); // force the focus
+        }
+
+        // button delete
+        else if (button == task_buttons.children[2]) task_buttons.parentElement.remove();
+
+        // checking if there is still tasks in the list, otherwise adapt the visual
         updateList(task_list);
 
-    });
-
+    }
 });
 
-
 /* todo
-cleaner le code et voir les var inutiles
 possibilité de déplacer les tâches les ordonner
-penser au local storage : de la tâche en input, et des tâches elles mêmes dans task list
 ajouter une sorde de % des tâches déjà réalisées avec un niveau ..?
-possibilité de rentrer une date .. ?
+cleaner le code et voir les var inutiles + date ?
 */
 
