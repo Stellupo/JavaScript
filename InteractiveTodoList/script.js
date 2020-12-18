@@ -35,7 +35,7 @@ function createTask(title) {
     task.append(task_name);
 
     // adding the buttons check, edit and delete
-    task.insertAdjacentHTML('beforeend', '<div id="button_wrapper"><img src="Images/check.png" alt="check"><img src="Images/edit.png" alt="edit"> <img src="Images/delete.png" alt="delete"></div>');
+    task.insertAdjacentHTML('beforeend', '<div id="button_wrapper"><img src="Images/check.png" alt="check" title="check the task"><img src="Images/edit.png" alt="edit" title="edit the task"> <img src="Images/delete.png" alt="delete" title="delete the task"></div>');
 
     task_list.append(task);
 
@@ -54,6 +54,18 @@ function createTask(title) {
         if (button == task_buttons.children[0]) {
             task_buttons.parentElement.remove();
             document.getElementById('modal_container').style.display = "flex";
+
+            // creating the button inside modal
+            document.getElementById('modal').insertAdjacentHTML('afterbegin','<button class="remove-button">[x]</button>');
+
+            // consequence of clicking on the created button
+            let buttonClose = document.getElementById('modal').getElementsByClassName('remove-button')[0];
+
+            buttonClose.onclick = function() {
+            // adding the class="close" to pane, the style will automatically being applied
+                document.getElementById('modal_container').style.display = "";
+            };
+
             // making the page unsrollable
             document.querySelector('body').style.overflow = "hidden"; // todo add a cross to close the modal
         }
@@ -66,22 +78,41 @@ function createTask(title) {
 
         // button delete
         else if (button == task_buttons.children[2]) task_buttons.parentElement.remove();
-
-        // checking if there is still tasks in the list, otherwise adapt the visual
-        updateList(task_list);
     });
 
+    // checking if there is still tasks in the list, otherwise adapt the visual
+    updateList(task_list);
 
 }
 
+// Handling events on page elements
 
-// handling click event on input_bar
+// Input bar
+
 let input_bar = document.getElementById('input_bar');
 let addButton = document.getElementById('add_tasks');
 let task_list = document.getElementById('tasks_list');
 
-
+// handling click event on button Add task
 addButton.addEventListener("click", function() {
+    // getting the title of the task
+    let title = input_bar.value;
+
+    // if the title is empty
+    if (title == "") {
+        alert ("Oh, Silly! You need a name for your task :o");
+        input_bar.focus();
+        return
+    }
+
+    // if the title is complete
+    createTask(title);
+});
+
+// handling input on input_bar
+input_bar.addEventListener("keydown", function(event) {
+     if (event.key != "Enter") return;
+
     // getting the title of the task
     let title = input_bar.value;
 
@@ -93,9 +124,10 @@ addButton.addEventListener("click", function() {
 
     // if the title is complete
     createTask(title);
-    updateList(task_list);
 });
 
+
+// Button Clear tasks
 // handling click event on clear_tasks
 let clearButton = document.getElementById('clear_tasks');
 
@@ -112,6 +144,8 @@ clearButton.addEventListener("click", function() {
     updateList(task_list);
 });
 
+
+// Modal with rewarding GIF
 // handling events when we have the modal on page
 let modal_container = document.getElementById('modal_container');
 
@@ -121,9 +155,12 @@ modal_container.addEventListener("click", function(event) {
     if (target.id != "modal_container") return;
 
     if (modal_container.style.display == "flex") modal_container.style.display = "";
+
 });
 
-// handling event when we are editing a task name
+
+// Task Name editing process
+// handling events when we are editing a task name
 
 // when the task name is focus, we can edit it
 tasks_list.addEventListener("click", function(event) {
@@ -140,7 +177,7 @@ tasks_list.addEventListener("click", function(event) {
 
         // if the title is empty, we will delete the whole line of the task
         if (target.textContent == "") {
-                target.parentElement.remove(); //todo idaelly just alert the user (but if we click on ok on the alert it's an infinite loop)
+                target.parentElement.remove(); //todo ideally just alert the user (but if we click on ok on the alert it's an infinite loop)
         }
         // else we make the task non editable again
         else {
@@ -149,12 +186,29 @@ tasks_list.addEventListener("click", function(event) {
         }
     });
 
+    // if the task name is edited, and we press Enter key
+    target.addEventListener("keydown", function(event) {
+        if (event.key == "Enter") {
+            // if the title is empty, we will delete the whole line of the task
+            if (target.textContent == "") {
+                    target.parentElement.remove(); //todo ideally just alert the user (but if we click on ok on the alert it's an infinite loop)
+            }
+            // else we make the task non editable again
+            else {
+                target.setAttribute("contenteditable","");
+                target.blur();
+            }
+        }
+
+    });
+
 });
 
 /* todo
+cleaner le code et voir les var inutiles
+possibilité de déplacer les tâches les ordonner
 penser au local storage
 ajouter une sorde de % des tâches déjà réalisées avec un niveau ..?
 possibilité de rentrer une date .. ?
-mettre un petit texte au dessus des icône pour préciser ce que c'est quand la souris en survol
 */
 
