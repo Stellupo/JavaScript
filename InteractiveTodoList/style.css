@@ -223,7 +223,6 @@ section {
 
 #modal {
     display: inline-block;
-    vertical-align: middle;
     padding: 0px 20px;
     width: 500px;
     background: #cce4fb ;
@@ -243,16 +242,18 @@ section {
     font-weight: bold;
 }
 
-#modal .remove-button {
+#remove-button {
   font-size: 110%;
-  color: red;
+  text-align: center;
+  color: #0B01FF;
   right: 10px;
+  top: 0px;
   width: 24px;
   height: 24px;
-  border: none;
   background-color: transparent;
   cursor: pointer;
   position: absolute;
+  border: 0px;
 }
 
 /* Footer */

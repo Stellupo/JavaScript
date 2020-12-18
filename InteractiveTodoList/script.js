@@ -53,21 +53,11 @@ function createTask(title) {
         // button check
         if (button == task_buttons.children[0]) {
             task_buttons.parentElement.remove();
+            // the modal windows opens
             document.getElementById('modal_container').style.display = "flex";
 
-            // creating the button inside modal
-            document.getElementById('modal').insertAdjacentHTML('afterbegin','<button class="remove-button">[x]</button>');
-
-            // consequence of clicking on the created button
-            let buttonClose = document.getElementById('modal').getElementsByClassName('remove-button')[0];
-
-            buttonClose.onclick = function() {
-            // adding the class="close" to pane, the style will automatically being applied
-                document.getElementById('modal_container').style.display = "";
-            };
-
             // making the page unsrollable
-            document.querySelector('body').style.overflow = "hidden"; // todo add a cross to close the modal
+            document.querySelector('body').style.overflow = "hidden";
         }
 
         // button edit
@@ -78,6 +68,10 @@ function createTask(title) {
 
         // button delete
         else if (button == task_buttons.children[2]) task_buttons.parentElement.remove();
+
+        // checking if there is still tasks in the list, otherwise adapt the visual
+        updateList(task_list);
+
     });
 
     // checking if there is still tasks in the list, otherwise adapt the visual
@@ -93,6 +87,8 @@ let input_bar = document.getElementById('input_bar');
 let addButton = document.getElementById('add_tasks');
 let task_list = document.getElementById('tasks_list');
 
+
+
 // handling click event on button Add task
 addButton.addEventListener("click", function() {
     // getting the title of the task
@@ -107,6 +103,8 @@ addButton.addEventListener("click", function() {
 
     // if the title is complete
     createTask(title);
+    // reinitializing the input bar
+    input_bar.value = "";
 });
 
 // handling input on input_bar
@@ -124,6 +122,15 @@ input_bar.addEventListener("keydown", function(event) {
 
     // if the title is complete
     createTask(title);
+    // reinitializing the input bar
+    input_bar.value = "";
+});
+
+// assuring the data storage : the task title appears in input bar if we have began to write
+input_bar.value = localStorage.getItem('title');
+// for each new input letter, we store it in localStorage.
+input_bar.addEventListener("input", function() {
+    localStorage.setItem('title',input_bar.value);
 });
 
 
@@ -134,7 +141,7 @@ let clearButton = document.getElementById('clear_tasks');
 
 clearButton.addEventListener("click", function() {
     // getting the tasks in the list
-    let tasks = tasks_list.querySelectorAll('div');
+    let tasks = task_list.querySelectorAll('div');
 
     // removing the tasks one by one
     for (let task of tasks) {
@@ -155,7 +162,15 @@ modal_container.addEventListener("click", function(event) {
     if (target.id != "modal_container") return;
 
     if (modal_container.style.display == "flex") modal_container.style.display = "";
+    updateList(task_list);
+});
 
+let buttonClose = document.getElementById('modal').querySelector('button');
+
+// removing the modal_container if we click on the button
+buttonClose.addEventListener('click', function() {
+    modal_container.style.display = "";
+    updateList(task_list);
 });
 
 
@@ -163,7 +178,7 @@ modal_container.addEventListener("click", function(event) {
 // handling events when we are editing a task name
 
 // when the task name is focus, we can edit it
-tasks_list.addEventListener("click", function(event) {
+task_list.addEventListener("click", function(event) {
     let target = event.target;
 
     if (target.tagName != "P") return;
@@ -184,6 +199,9 @@ tasks_list.addEventListener("click", function(event) {
             target.setAttribute("contenteditable","");
             target.blur();
         }
+
+        updateList(task_list);
+
     });
 
     // if the task name is edited, and we press Enter key
@@ -200,14 +218,17 @@ tasks_list.addEventListener("click", function(event) {
             }
         }
 
+        updateList(task_list);
+
     });
 
 });
 
+
 /* todo
 cleaner le code et voir les var inutiles
 possibilité de déplacer les tâches les ordonner
-penser au local storage
+penser au local storage : de la tâche en input, et des tâches elles mêmes dans task list
 ajouter une sorde de % des tâches déjà réalisées avec un niveau ..?
 possibilité de rentrer une date .. ?
 */
