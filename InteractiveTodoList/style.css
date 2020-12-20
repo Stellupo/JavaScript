@@ -157,8 +157,8 @@ section {
 
 #tasks_list {
     width: 80%;
-    max-height: 500px;
-    overflow: scroll;
+    max-height: 1500px;
+    /*overflow: scroll;*/
     padding: 20px;
 }
 

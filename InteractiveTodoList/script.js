@@ -48,6 +48,7 @@ function createTask(title) {
 
     // checking if there is still tasks in the list, otherwise adapt the visual
     updateList(task_list);
+    updateProgressionBar (task_completed)
 
 }
 
@@ -62,7 +63,7 @@ function editTask (task) {
 
         // if the title is empty, we will delete the whole line of the task
         if (task.textContent == "") {
-                task.parentElement.remove(); //todo ideally just alert the user (but if we click on ok on the alert it's an infinite loop)
+                task.parentElement.remove();
         }
         // else we make the task non editable again
         else {
@@ -79,7 +80,7 @@ function editTask (task) {
         if (event.key == "Enter") {
             // if the title is empty, we will delete the whole line of the task
             if (task.textContent == "") {
-                    task.parentElement.remove(); //todo ideally just alert the user (but if we click on ok on the alert it's an infinite loop)
+                    task.parentElement.remove();
             }
             // else we make the task non editable again
             else {
@@ -93,6 +94,16 @@ function editTask (task) {
 
 }
 
+function updateProgressionBar (task_completed) {
+    let progression_bar = document.getElementById('progress');
+    let tasks = task_list.querySelectorAll('#task');
+
+    progression_bar.value =  (task_completed / (tasks.length+1)) * 100;
+
+    // updating the data storage everytime the progression bar is updated
+    localStorage.setItem('taskCompleted',progression_bar.value);
+}
+
 // Handling events on page elements
 
 // Input bar
@@ -100,13 +111,24 @@ function editTask (task) {
 let input_bar = document.getElementById('input_bar');
 let addButton = document.getElementById('add_tasks');
 let task_list = document.getElementById('tasks_list');
+let task_completed = 0;
+
+localStorage.clear();
 
 // initializing datas from localStorage if we have some storage
-localStorage.clear(); //todo
-if (localStorage.getItem('taskList')  && localStorage.getItem('tasksList') != "") {
+if (localStorage.hasOwnProperty('tasksList')) { // if we do have tasks saved in data storage
     task_list.innerHTML = localStorage.getItem('tasksList');
     updateList(task_list);
+
+    if (localStorage.hasOwnProperty('taskCompleted')) {  // if we do have completed tasks saved in data storage
+        task_completed = Number(localStorage.getItem('taskCompleted'));
+        document.getElementById('progress').value = task_completed;
+
+        // updating the data storage everytime the progression bar is updated
+        localStorage.setItem('taskCompleted',task_completed);
     }
+}
+
 
 // assuring the data storage : the task title appears in input bar if we have began to write
 input_bar.value = localStorage.getItem('title');
@@ -124,7 +146,7 @@ addButton.addEventListener("click", function() {
     }
 
     // if the title is complete
-    createTask(title);
+    createTask(title, task_completed);
     // reinitializing the input bar
     input_bar.value = "";
 });
@@ -143,7 +165,7 @@ input_bar.addEventListener("keydown", function(event) {
     }
 
     // if the title is complete
-    createTask(title);
+    createTask(title, task_completed);
     // reinitializing the input bar
     input_bar.value = "";
 });
@@ -164,7 +186,9 @@ modal_container.addEventListener("click", function(event) {
 
     if (target.id != "modal_container") return;
 
-    if (modal_container.style.display == "flex") modal_container.style.display = "";
+    if (modal_container.style.display == "flex") {
+        modal_container.style.display = "";
+    }
     updateList(task_list);
 });
 
@@ -206,11 +230,9 @@ task_list.addEventListener("click", function(event) {
         // button check
         if (button == task_buttons.children[0]) {
             task_buttons.parentElement.remove();
+            task_completed = 1;
             // the modal windows opens
             document.getElementById('modal_container').style.display = "flex";
-
-            // making the page unsrollable
-            document.querySelector('body').style.overflow = "hidden";
         }
 
         // button edit
@@ -222,6 +244,7 @@ task_list.addEventListener("click", function(event) {
         // button delete
         else if (button == task_buttons.children[2]) task_buttons.parentElement.remove();
 
+        updateProgressionBar (task_completed);
         // checking if there is still tasks in the list, otherwise adapt the visual
         updateList(task_list);
 
@@ -243,7 +266,8 @@ list_footer.addEventListener("click", function(event) {
         for (let task of tasks) {
             task.remove();
         };
-
+    updateProgressionBar (task_completed);
+    task_completed = 0;
     updateList(task_list);
 
     }
@@ -251,7 +275,6 @@ list_footer.addEventListener("click", function(event) {
 
 
 /* todo
-ajouter une sorde de % des tâches déjà réalisées avec un niveau ..?
 cleaner le code et voir les var inutiles + date ?
 */
 
