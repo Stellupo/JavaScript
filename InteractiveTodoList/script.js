@@ -3,21 +3,12 @@
 // updating the visual of the page according to the presence of tasks in tasks_list
 function updateList(list) {
 
-    // assuring the data storage : the tasks list remain
-    // if the tasks have already been added
-
-    // if we don"t have values in tasksList, value b defaut is set
-    //localStorage.clear();
-
-    // updating the data storage
+    // updating the data storage everytime the tasks list been updated
     localStorage.setItem('tasksList',list.innerHTML);
-
-    task_list.addEventListener("change", function() {
-        localStorage.setItem('tasksList', task_list.innerHTML);
-    });
 
     let section = document.getElementById("section");
     let footer = document.querySelector('footer');
+    let list_footer = document.getElementById('list_footer');
 
     // if the list has at least one task, remove h2 & h3
     if (list.children.length > 1) {
@@ -26,6 +17,7 @@ function updateList(list) {
         section.querySelector('h2').classList.add("close");
         section.querySelector('h3').classList.add("close");
         list.classList.remove("close");
+        list_footer.classList.remove("close");
 
         // hiding the footer to be more visible
         footer.classList.add('close');
@@ -34,6 +26,7 @@ function updateList(list) {
 
     // if list is empty, it disappears, the titles & the footer come back
     list.classList.add("close");
+    list_footer.classList.add("close");
     section.querySelector('h2').classList.remove("close");
     section.querySelector('h3').classList.remove("close");
     footer.classList.remove('close');
@@ -157,23 +150,6 @@ input_bar.addEventListener("input", function() {
 });
 
 
-// Button Clear tasks
-// handling click event on clear_tasks
-let clearButton = document.getElementById('clear_tasks');
-
-
-clearButton.addEventListener("click", function() {
-    // getting the tasks in the list
-    let tasks = task_list.querySelectorAll('div');
-
-    // removing the tasks one by one
-    for (let task of tasks) {
-        task.remove();
-    }
-
-    updateList(task_list);
-});
-
 
 // Modal with rewarding GIF
 // handling events when we have the modal on page
@@ -210,7 +186,8 @@ task_list.addEventListener("click", function(event) {
         updateList(task_list);
 
     }
-    // if we have clicked on one of the buttons
+
+    // else if we have clicked on one of the buttons
     else if (div.id == "button_wrapper") {
 
         let button = target.closest('img');
@@ -247,8 +224,31 @@ task_list.addEventListener("click", function(event) {
     }
 });
 
+// Tasks list footer
+let list_footer = document.getElementById('list_footer');
+
+list_footer.addEventListener("click", function(event) {
+    let target = event.target;
+    let div = target.closest('div');
+    // else if we have clicked on clear task button
+    if (target.id == ('clear_tasks')) {
+        // getting the tasks in the list
+        let tasks = task_list.querySelectorAll('div');
+
+        // removing the tasks one by one
+        for (let task of tasks) {
+            task.remove();
+        };
+
+    updateList(task_list);
+
+    }
+});
+
+
 /* todo
 possibilité de déplacer les tâches les ordonner
+//todo ideally just alert the user (but if we click on ok on the alert it's an infinite loop)
 ajouter une sorde de % des tâches déjà réalisées avec un niveau ..?
 cleaner le code et voir les var inutiles + date ?
 */
