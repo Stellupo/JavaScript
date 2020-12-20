@@ -17,7 +17,7 @@ function updateList(list) {
         section.querySelector('h2').classList.add("close");
         section.querySelector('h3').classList.add("close");
         list.classList.remove("close");
-        list_footer.classList.remove("close");
+        list_footer.classList = "open"; //to do probleme avec l'attribut
 
         // hiding the footer to be more visible
         footer.classList.add('close');
@@ -26,7 +26,7 @@ function updateList(list) {
 
     // if list is empty, it disappears, the titles & the footer come back
     list.classList.add("close");
-    list_footer.classList.add("close");
+    list_footer.classList ="close";
     section.querySelector('h2').classList.remove("close");
     section.querySelector('h3').classList.remove("close");
     footer.classList.remove('close');
@@ -101,9 +101,13 @@ let input_bar = document.getElementById('input_bar');
 let addButton = document.getElementById('add_tasks');
 let task_list = document.getElementById('tasks_list');
 
-// initializing datas from localStorage
-task_list.innerHTML = localStorage.getItem('tasksList');
-updateList(task_list);
+// initializing datas from localStorage if we have some storage
+localStorage.clear(); //todo
+if (localStorage.getItem('taskList')  && localStorage.getItem('tasksList') != "") {
+    task_list.innerHTML = localStorage.getItem('tasksList');
+    updateList(task_list);
+    }
+
 // assuring the data storage : the task title appears in input bar if we have began to write
 input_bar.value = localStorage.getItem('title');
 
@@ -247,8 +251,6 @@ list_footer.addEventListener("click", function(event) {
 
 
 /* todo
-possibilité de déplacer les tâches les ordonner
-//todo ideally just alert the user (but if we click on ok on the alert it's an infinite loop)
 ajouter une sorde de % des tâches déjà réalisées avec un niveau ..?
 cleaner le code et voir les var inutiles + date ?
 */

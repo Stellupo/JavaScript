@@ -13,7 +13,7 @@
             <hr />
         </header>
         <section id="section">
-            <h2>Add your first todo</h2>
+            <h2>Add your first to-do</h2>
             <h3>What do you want to be done today ? </h3>
             <div id="input_container">
                 <input type="text" name="task" id="input_bar" placeholder="Enter a new task...">
@@ -23,7 +23,11 @@
                 <h2>Let's do our best ! Here are my lovely tasks :</h2>
             </div>
             <div id="list_footer" class="close">
-                <label for="file">File progress:</label>
+                <label for="file">Tasks completion progress</label>
+                <div id="caption">
+                    <span>0%</span>
+                    <span>100%</span>
+                </div>
                 <progress id="file" max="100" value="70"> 70% </progress>
                 <button type="button" class="button" id="clear_tasks" title="Delete all the tasks">Clear tasks</button>
             </div>

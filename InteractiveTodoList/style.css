@@ -58,6 +58,15 @@ h3 {
     display: none;
 }
 
+/*Removing the default style on Chrome*/
+input:focus {
+    outline: transparent;
+}
+
+button:focus{
+    outline: transparent;
+}
+
 /* Header */
 
 header {
@@ -74,8 +83,9 @@ header {
 header hr {
     display: inline-block;
     width : 90%;
-    height: 3px;
-    color: #0B01FF;
+    height: 2px;
+    border: none;
+    background-color: #0B01FF;
     position : absolute;
     bottom: 0%;
 }
@@ -187,23 +197,61 @@ section {
 }
 
 /* List footer*/
-#list_footer {
+
+.open {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
-label {
-    padding-right: 10px;
-    font-size: 1rem;
+#caption {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin-top : 10px;
+    margin-bottom : 2px;
 }
 
-#file::-moz-progress-bar  {
-    color : #0B01FF;
-    background-color : #cce4fb;
-    border: #0B01FF;
+#list_footer span {
+    font-size: 80%;
 }
+
+progress  {
+    /* Reset the default appearance */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    /* Get rid of default border in Firefox. */
+    border: none;
+
+    width: 80%;
+    height: 15px;
+}
+
+
+progress::-moz-progress-bar { /*Mozilla style*/
+    background-color: #0B01FF;
+    border: 2px solid #0B01FF;
+      border-radius: 5px;
+}
+
+progress::-webkit-progress-bar { /* Chrome Style*/
+    background-color: white;
+    border-radius: 50px;
+    border: 1px solid #0B01FF;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+    box-shadow: none;
+}
+
+progress::-webkit-progress-value { /* Chrome Style*/
+    background-color: #0B01FF;
+    border-radius: 50px;
+}
+
+
 
 .button {
     font-family: 'helvetica', serif;
@@ -213,7 +261,7 @@ label {
     border: solid 2px #0B01FF;
     border-radius : 5px;
     opacity: 0.5;
-    margin: 10px;
+    margin: 15px;
 }
 
 .button:hover {
