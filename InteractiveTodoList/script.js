@@ -48,12 +48,12 @@ function createTask(title) {
 
     // checking if there is still tasks in the list, otherwise adapt the visual
     updateList(task_list);
-    updateProgressionBar (task_completed)
+    updateProgressionBar (task_completed) // ca passe à 100 ..? todo
 
 }
 
 
-function editTask (task) {
+function editTask (task, task_completed) {
    // if the task name has been clicked on
     task.setAttribute("contenteditable","true"); // task name is now editable
     task.focus();
@@ -64,13 +64,14 @@ function editTask (task) {
         // if the title is empty, we will delete the whole line of the task
         if (task.textContent == "") {
                 task.parentElement.remove();
+                updateProgressionBar (task_completed);
         }
         // else we make the task non editable again
         else {
             task.setAttribute("contenteditable","");
             task.blur();
         }
-
+updateProgressionBar (task_completed);
         updateList(task_list);
 
     });
@@ -87,7 +88,7 @@ function editTask (task) {
                 task.setAttribute("contenteditable","");
                 task.blur();
             }
-
+updateProgressionBar (task_completed);
             updateList(task_list);
         }
     });
@@ -95,11 +96,30 @@ function editTask (task) {
 }
 
 function updateProgressionBar (task_completed) {
+
     let progression_bar = document.getElementById('progress');
     let tasks = task_list.querySelectorAll('#task');
 
-    progression_bar.value =  (task_completed / (tasks.length+1)) * 100;
+      /* if we already have a value stored in our storage data, it means we have complete one task.
+    Either, we still have tasks to complete and so we keep in mind the one we already have completed.
+    Either, we have completed them all, and do we don't need to keep it and we reinitialized the data.
+    We have only two possible values for task_completed : 1 or 0.
+    So if we have a value in our progression_bar, it means one task had been completed previously.
+    */
 
+    // if a task has been completed and we still have tasks to complete
+    if (progression_bar.value == 100) {
+        task_completed = 0;
+        progression_bar.value = 0;
+    }
+    // else if we clear all the tasks or complete them all, let's lose the score
+    else if (progression_bar.value > 0 && progression_bar.value < 100 ) {
+        task_completed = 1;
+        progression_bar.value = 0;
+    }
+
+    // else calculate a new one
+    progression_bar.value =  (task_completed / (tasks.length+1)) * 100;
     // updating the data storage everytime the progression bar is updated
     localStorage.setItem('taskCompleted',progression_bar.value);
 }
@@ -111,21 +131,23 @@ function updateProgressionBar (task_completed) {
 let input_bar = document.getElementById('input_bar');
 let addButton = document.getElementById('add_tasks');
 let task_list = document.getElementById('tasks_list');
+let progression_bar = document.getElementById('progress');
 let task_completed = 0;
-
-localStorage.clear();
+// todo esc quand on veut changer le nom annule le changement de nom
+//localStorage.clear();
 
 // initializing datas from localStorage if we have some storage
 if (localStorage.hasOwnProperty('tasksList')) { // if we do have tasks saved in data storage
     task_list.innerHTML = localStorage.getItem('tasksList');
     updateList(task_list);
 
-    if (localStorage.hasOwnProperty('taskCompleted')) {  // if we do have completed tasks saved in data storage
-        task_completed = Number(localStorage.getItem('taskCompleted'));
-        document.getElementById('progress').value = task_completed;
+    // if we do have completed tasks saved in data storage and we have not already completed them all, show the progression in the bar
+    if (localStorage.hasOwnProperty('taskCompleted') && localStorage.getItem('taskCompleted') != "100") {
+        let previous_calculation = Number(localStorage.getItem('taskCompleted'));
+        progression_bar.value = previous_calculation;
 
         // updating the data storage everytime the progression bar is updated
-        localStorage.setItem('taskCompleted',task_completed);
+        localStorage.setItem('taskCompleted',previous_calculation);
     }
 }
 
@@ -210,9 +232,8 @@ task_list.addEventListener("click", function(event) {
 
     // if we have clicked on the task name
     if (div.id == "task") {
-        editTask(target.closest('p'));   // task name editing function
+        editTask(target.closest('p'),task_completed);   // task name editing function
         updateList(task_list);
-
     }
 
     // else if we have clicked on one of the buttons
@@ -230,6 +251,7 @@ task_list.addEventListener("click", function(event) {
         // button check
         if (button == task_buttons.children[0]) {
             task_buttons.parentElement.remove();
+            // everytime we click on complete, we change the value of the task_completed to 1
             task_completed = 1;
             // the modal windows opens
             document.getElementById('modal_container').style.display = "flex";
@@ -237,12 +259,12 @@ task_list.addEventListener("click", function(event) {
 
         // button edit
         else if (button == task_buttons.children[1]) {
-            div.previousElementSibling.setAttribute("contenteditable","true");
-            div.previousElementSibling.focus(); // force the focus
+            editTask(div.previousElementSibling, task_completed);
         }
 
         // button delete
         else if (button == task_buttons.children[2]) task_buttons.parentElement.remove();
+
 
         updateProgressionBar (task_completed);
         // checking if there is still tasks in the list, otherwise adapt the visual
@@ -266,8 +288,9 @@ list_footer.addEventListener("click", function(event) {
         for (let task of tasks) {
             task.remove();
         };
-    updateProgressionBar (task_completed);
+
     task_completed = 0;
+    progression_bar.value = 0
     updateList(task_list);
 
     }
