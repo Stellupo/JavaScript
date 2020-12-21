@@ -33,7 +33,7 @@ function updateList(list) {
 }
 
 // creating the element for the new task
-function createTask(title) {
+function createTask(title, task_completed) {
     let task = document.createElement('div');
     task.id = 'task';
     let task_name = document.createElement('p');
@@ -48,7 +48,8 @@ function createTask(title) {
 
     // checking if there is still tasks in the list, otherwise adapt the visual
     updateList(task_list);
-    updateProgressionBar (task_completed) // ca passe à 100 ..? todo
+    // updating the progression bar with the new task
+    updateProgressionBar (task_completed);
 
 }
 
@@ -58,7 +59,7 @@ function editTask (task, task_completed) {
     task.setAttribute("contenteditable","true"); // task name is now editable
     task.focus();
 
-    // when the task name is edited, and we click elsewhere
+    // if the task name is edited, and we click elsewhere
     task.addEventListener("blur", function() {
 
         // if the title is empty, we will delete the whole line of the task
@@ -71,7 +72,10 @@ function editTask (task, task_completed) {
             task.setAttribute("contenteditable","");
             task.blur();
         }
-updateProgressionBar (task_completed);
+
+        // update the progression bar in case we delete the task
+        updateProgressionBar (task_completed);
+        // // update the list in case we delete the task
         updateList(task_list);
 
     });
@@ -88,8 +92,12 @@ updateProgressionBar (task_completed);
                 task.setAttribute("contenteditable","");
                 task.blur();
             }
-updateProgressionBar (task_completed);
+
+            // update the progression bar in case we delete the task
+            updateProgressionBar (task_completed);
+            // // update the list in case we delete the task
             updateList(task_list);
+
         }
     });
 
@@ -133,8 +141,6 @@ let addButton = document.getElementById('add_tasks');
 let task_list = document.getElementById('tasks_list');
 let progression_bar = document.getElementById('progress');
 let task_completed = 0;
-// todo esc quand on veut changer le nom annule le changement de nom
-//localStorage.clear();
 
 // initializing datas from localStorage if we have some storage
 if (localStorage.hasOwnProperty('tasksList')) { // if we do have tasks saved in data storage
@@ -295,9 +301,4 @@ list_footer.addEventListener("click", function(event) {
 
     }
 });
-
-
-/* todo
-cleaner le code et voir les var inutiles + date ?
-*/
 
