@@ -4,10 +4,6 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="ImageGallery" />
-    <orderEntry type="module" module-name="DivToTextarea" />
-    <orderEntry type="module" module-name="ModalForm" />
-    <orderEntry type="module" module-name="CV" />
   </component>
   <component name="PyDocumentationSettings">
     <option name="format" value="PLAIN" />
